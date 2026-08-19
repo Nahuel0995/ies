@@ -175,7 +175,7 @@ def reiniciar():
 
 if st.session_state.pagina == "inicio":
     try:
-        st.image("ies imagenes/logo ies.jpg", width=200) 
+        st.image("logo ies.jpg", width=200) 
     except FileNotFoundError:
         st.warning("No se encontró la imagen del logo (logo_ies11.png).")
     st.title("🎓 IES N.º 11")
