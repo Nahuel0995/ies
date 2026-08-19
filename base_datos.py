@@ -138,7 +138,7 @@ def guardar_resultado(nombre, apellido, email, edad, sexo, respuestas, resultado
 
         
         # ¡Aquí estaba el error! Asegúrate de enviar los 6 datos en este orden exacto:
-        enviar_correo_resultado(email, nombre, carrera_recomendada, descripcion, plan, drive) 
+        enviar_correo_resultado(email, nombre, carrera_recomendada, descripcion, plan,) 
         
         return len(hoja.get_all_values())
         
