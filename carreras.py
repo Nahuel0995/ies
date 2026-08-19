@@ -45,6 +45,7 @@ CARRERAS = {
         "gastronomia": 1,
         "salud": 5,
         "turismo": 1,
+        "plan_estudio": "laboratorio.pdf"
 
         "descripcion":
         "Orientada al trabajo técnico y científico relacionado "
@@ -83,6 +84,7 @@ CARRERAS = {
         "gastronomia": 1,
         "salud": 5,
         "turismo": 3,
+        "plan_estudio": "AT.pdf"
 
         "descripcion":
         "Orientada al acompañamiento y apoyo de personas "
@@ -161,6 +163,7 @@ CARRERAS = {
         "gastronomia": 2,
         "salud": 1,
         "turismo": 3,
+        "plan_estudio": "diseño indumentaria.pdf"
 
         "descripcion":
         "Orientada al diseño, desarrollo y producción de "
