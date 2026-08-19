@@ -1,142 +1,66 @@
-from pathlib import Path
+import streamlit as st
+import gspread
+from google.oauth2.service_account import Credentials
 from datetime import datetime
 
-import pandas as pd
+# ==========================================
+# PEGA AQUÍ LA URL DE TU GOOGLE SHEET
+# ==========================================
+URL_GOOGLE_SHEET = "https://docs.google.com/spreadsheets/d/1Gf78RUz3HEKdQxbwYL0pa4fEFEyw-9zMzY-iqoaTx8c/edit?usp=sharing"
 
+def guardar_resultado(nombre, apellido, email, edad, sexo, respuestas, resultado):
+    
+    fecha = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-ARCHIVO = Path(
-    "resultados_test.xlsx"
-)
+    # 1. Armamos la fila con los datos principales en una lista
+    fila = [
+        fecha, 
+        nombre, 
+        apellido, 
+        email, 
+        edad, 
+        sexo,
+        resultado["tipo_perfil"],
+        resultado["perfil_principal"][0], 
+        resultado["perfil_principal"][1],
+        resultado["perfil_secundario"][0], 
+        resultado["perfil_secundario"][1],
+        resultado["top4"][0]["carrera"], 
+        resultado["top4"][0]["afinidad"],
+        resultado["top4"][1]["carrera"], 
+        resultado["top4"][1]["afinidad"],
+        resultado["top4"][2]["carrera"], 
+        resultado["top4"][2]["afinidad"],
+        resultado["top4"][3]["carrera"], 
+        resultado["top4"][3]["afinidad"]
+    ]
 
-
-def guardar_resultado(
-
-    nombre,
-    apellido,
-    email,
-    edad,
-    sexo,
-    respuestas,
-    resultado
-
-):
-
-    fecha = datetime.now().strftime(
-        "%Y-%m-%d %H:%M:%S"
-    )
-
-
-    registro = {
-
-        "Fecha": fecha,
-
-        "Nombre": nombre,
-
-        "Apellido": apellido,
-        "Email": email,
-
-        "Edad": edad,
-
-        "Sexo": sexo,
-
-        "Tipo_Perfil":
-            resultado["tipo_perfil"],
-
-        "Orientacion_Principal":
-            resultado["perfil_principal"][0],
-
-        "Porcentaje_Principal":
-            resultado["perfil_principal"][1],
-
-        "Orientacion_Secundaria":
-            resultado["perfil_secundario"][0],
-
-        "Porcentaje_Secundaria":
-            resultado["perfil_secundario"][1],
-
-        "Carrera_1":
-            resultado["top4"][0]["carrera"],
-
-        "Afinidad_1":
-            resultado["top4"][0]["afinidad"],
-
-        "Carrera_2":
-            resultado["top4"][1]["carrera"],
-
-        "Afinidad_2":
-            resultado["top4"][1]["afinidad"],
-
-        "Carrera_3":
-            resultado["top4"][2]["carrera"],
-
-        "Afinidad_3":
-            resultado["top4"][2]["afinidad"],
-
-        "Carrera_4":
-            resultado["top4"][3]["carrera"],
-
-        "Afinidad_4":
-            resultado["top4"][3]["afinidad"]
-    }
-
-
-    # Guardar las 16 respuestas
-
+    # 2. Agregamos las 16 respuestas al final de la fila
     for numero in range(1, 17):
+        fila.append(respuestas.get(numero, ""))
 
-        registro[
-            f"Pregunta_{numero}"
-        ] = respuestas.get(
-            numero,
-            ""
+    try:
+        # 3. Conectar a Google Sheets usando los "Secrets" de Streamlit
+        scopes = [
+            "https://www.googleapis.com/auth/spreadsheets",
+        ]
+        
+        # Lee las credenciales ocultas en la nube de Streamlit
+        credenciales = Credentials.from_service_account_info(
+            st.secrets["gcp_service_account"],
+            scopes=scopes
         )
-
-
-    # ---------------------------------
-    # Si ya existe el Excel
-    # ---------------------------------
-
-    if ARCHIVO.exists():
-
-        try:
-
-            anterior = pd.read_excel(
-                ARCHIVO
-            )
-
-
-            nuevo = pd.DataFrame(
-                [registro]
-            )
-
-
-            df = pd.concat(
-                [
-                    anterior,
-                    nuevo
-                ],
-                ignore_index=True
-            )
-
-
-        except Exception:
-
-            df = pd.DataFrame(
-                [registro]
-            )
-
-
-    else:
-
-        df = pd.DataFrame(
-            [registro]
-        )
-
-
-    df.to_excel(
-        ARCHIVO,
-        index=False
-    )
-
-
-    return len(df)
+        
+        cliente = gspread.authorize(credenciales)
+        
+        # 4. Abrir la hoja y agregar la fila
+        hoja = cliente.open_by_url(URL_GOOGLE_SHEET).sheet1
+        hoja.append_row(fila)
+        
+        # Retorna la cantidad de filas para usarlo como "Número de Registro"
+        return len(hoja.get_all_values())
+        
+    except Exception as e:
+        # Si hay un error de conexión, mostramos un mensaje en la consola pero no rompemos la app
+        print(f"Error al guardar en Google Sheets: {e}")
+        return 9999
