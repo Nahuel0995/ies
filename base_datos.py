@@ -61,6 +61,6 @@ def guardar_resultado(nombre, apellido, email, edad, sexo, respuestas, resultado
         return len(hoja.get_all_values())
         
     except Exception as e:
-        # Si hay un error de conexión, mostramos un mensaje en la consola pero no rompemos la app
-        print(f"Error al guardar en Google Sheets: {e}")
+        # Enviar el error a la pantalla de Streamlit para poder leerlo
+        st.error(f"Error de conexión con Google Sheets: {e}")
         return 9999
