@@ -176,7 +176,8 @@ def calcular_afinidad_carreras(
             ),
 
             "descripcion":
-                datos["descripcion"]
+                datos["descripcion"],
+            "plan_estudio": datos.get("plan_estudio", "No disponible")
         })
 
 
