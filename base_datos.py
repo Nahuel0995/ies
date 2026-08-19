@@ -1,6 +1,9 @@
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from email.mime.base import MIMEBase   # <-
+from email import encoders             # <-
+import os                            
 import streamlit as st
 import gspread
 from google.oauth2.service_account import Credentials
@@ -10,40 +13,63 @@ from datetime import datetime
 # PEGA AQUÍ LA URL DE TU GOOGLE SHEET
 # ==========================================
 URL_GOOGLE_SHEET = "https://docs.google.com/spreadsheets/d/1Gf78RUz3HEKdQxbwYL0pa4fEFEyw-9zMzY-iqoaTx8c/edit?usp=sharing"
-def enviar_correo_resultado(email_destino, nombre, carrera_principal, descripcion_carrera):
+def enviar_correo_resultado(email_destino, nombre, carrera_principal, descripcion_carrera, archivo_pdf):
     try:
-        # Recupera las credenciales de Streamlit
         remitente = st.secrets["email"]["direccion"]
         password = st.secrets["email"]["password"]
 
-        # Configuración del mensaje
         msg = MIMEMultipart()
         msg['From'] = remitente
         msg['To'] = email_destino
-        msg['Subject'] = "Resultados de tu Test Vocacional - IES N.º 11"
+        msg['Subject'] = "Resultados de tu Test Vocacional - IES Nº4"
 
-        # Cuerpo del correo electrónico
+        # Cuerpo del correo
         cuerpo = f"""
-        ¡Hola {nombre}!
-        
-        Gracias por visitar el stand del IES N.º 11 en la exposición.
-        
-        Según tus respuestas en el test vocacional, la tecnicatura con mayor afinidad para vos es:
-        
-        🎓 {carrera_principal}
-        
-        ¿De qué se trata?
-        {descripcion_carrera}
-        
-        ¡Te esperamos en nuestra institución para que comiences tu camino profesional!
-        
-        Saludos,
-        El equipo del IES N.º 11
-        """
-        
+¡Hola {nombre}!
+
+Gracias por visitar el stand del IES Nº4 en la exposición.
+
+Según tus respuestas en el test vocacional, la tecnicatura con mayor afinidad para vos es:
+
+🎓 {carrera_principal}
+
+¿De qué se trata?
+{descripcion_carrera}
+
+📚 Adjuntamos a este correo el plan de estudio completo en PDF para que puedas ver todas las materias.
+y te compartimos su red social para que nos sigas y estes informado https://www.facebook.com/profile.php?id=100066551990089
+
+¡Te esperamos en nuestra institución!
+
+Saludos,
+El equipo del IES Nº4
+"""
         msg.attach(MIMEText(cuerpo, 'plain'))
 
-        # Conexión al servidor de Gmail y envío
+        # ---------------------------------------------------------
+        # LÓGICA PARA ADJUNTAR EL PDF
+        # ---------------------------------------------------------
+        if os.path.exists(archivo_pdf):
+            with open(archivo_pdf, 'rb') as f:
+                # Preparamos el PDF para que viaje por correo
+                parte_adjunto = MIMEBase('application', 'octet-stream')
+                parte_adjunto.set_payload(f.read())
+            
+            # Lo codificamos
+            encoders.encode_base64(parte_adjunto)
+            
+            # Le agregamos el nombre del archivo original
+            parte_adjunto.add_header(
+                'Content-Disposition',
+                f'attachment; filename={os.path.basename(archivo_pdf)}'
+            )
+            
+            # Lo adjuntamos al mensaje
+            msg.attach(parte_adjunto)
+        else:
+            print(f"Advertencia: No se encontró el archivo '{archivo_pdf}'.")
+        # ---------------------------------------------------------
+
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
         server.login(remitente, password)
