@@ -131,12 +131,15 @@ def guardar_resultado(nombre, apellido, email, edad, sexo, respuestas, resultado
         hoja.append_row(fila)
         
         # 5. ENVIAR EL CORREO AUTOMÁTICO
+       # 5. ENVIAR EL CORREO AUTOMÁTICO
         carrera_recomendada = resultado["top4"][0]["carrera"]
         descripcion = resultado["top4"][0]["descripcion"]
+        plan = resultado["top4"][0]["plan_estudio"]
+        drive = resultado["top4"][0]["link_drive"]
         
-        enviar_correo_resultado(email, nombre, carrera_recomendada, descripcion)
+        # ¡Aquí estaba el error! Asegúrate de enviar los 6 datos en este orden exacto:
+        enviar_correo_resultado(email, nombre, carrera_recomendada, descripcion, plan, drive) 
         
-        # Retorna la cantidad de filas para usarlo como "Número de Registro"
         return len(hoja.get_all_values())
         
         # Retorna la cantidad de filas para usarlo como "Número de Registro"
