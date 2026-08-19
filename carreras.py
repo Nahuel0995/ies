@@ -6,6 +6,7 @@ CARRERAS = {
         "gastronomia": 1,
         "salud": 3,
         "turismo": 1,
+        "plan_estudio": "cs de datos.pdf"
 
         "descripcion":
         "Orientada al análisis de datos, programación, "
@@ -19,6 +20,7 @@ CARRERAS = {
         "gastronomia": 1,
         "salud": 2,
         "turismo": 2,
+        "plan_estudio": "desarrollo de soft.pdf"
 
         "descripcion":
         "Formación orientada al diseño, desarrollo y "
@@ -32,6 +34,7 @@ CARRERAS = {
         "gastronomia": 1,
         "salud": 5,
         "turismo": 1,
+        "plan_estudio": "estadistica de la salud.pdf"
 
         "descripcion":
         "Combina análisis estadístico, procesamiento de "
@@ -59,6 +62,7 @@ CARRERAS = {
         "gastronomia": 1,
         "salud": 5,
         "turismo": 2,
+        "plan_estudio": "enfermeria.pdf"
 
         "descripcion":
         "Formación orientada al cuidado, atención y promoción de la salud."
@@ -71,6 +75,7 @@ CARRERAS = {
         "gastronomia": 1,
         "salud": 5,
         "turismo": 3,
+        "plan_estudio": "agente sanitario.pdf"
 
         "descripcion":
         "Orientada a la promoción de la salud, prevención y "
@@ -98,6 +103,7 @@ CARRERAS = {
         "gastronomia": 1,
         "salud": 5,
         "turismo": 3,
+        "plan_estudio": "adm de la salud.pdf"
 
         "descripcion":
         "Combina administración, organización y gestión "
@@ -111,6 +117,7 @@ CARRERAS = {
         "gastronomia": 2,
         "salud": 2,
         "turismo": 5,
+        "plan_estudio": "turismo.pdf"
 
         "descripcion":
         "Orientada a la planificación, gestión y desarrollo "
@@ -124,6 +131,7 @@ CARRERAS = {
         "gastronomia": 3,
         "salud": 2,
         "turismo": 5,
+        "plan_estudio": "hoteleria.pdf"
 
         "descripcion":
         "Orientada a la gestión hotelera, hospitalidad, "
@@ -137,6 +145,7 @@ CARRERAS = {
         "gastronomia": 5,
         "salud": 2,
         "turismo": 4,
+        "plan_estudio": "cocina regional.pdf"
 
         "descripcion":
         "Formación relacionada con gastronomía regional, "
@@ -150,6 +159,7 @@ CARRERAS = {
         "gastronomia": 1,
         "salud": 5,
         "turismo": 2,
+        "plan_estudio": "higiene y seguridad.pdf"
 
         "descripcion":
         "Orientada a la prevención de riesgos, seguridad "
