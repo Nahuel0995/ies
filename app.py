@@ -284,6 +284,7 @@ elif st.session_state.pagina == "datos":
             st.session_state.apellido = (
                 apellido.strip()
             )
+            st.session_state.email = email.strip()
 
             st.session_state.edad = int(
                 edad
@@ -386,7 +387,7 @@ elif st.session_state.pagina == "resultado":
             st.session_state.nombre,
 
             st.session_state.apellido,
-            st.session_state.apellido,
+            st.session_state.mail,
 
             st.session_state.edad,
 
