@@ -387,7 +387,7 @@ elif st.session_state.pagina == "resultado":
             st.session_state.nombre,
 
             st.session_state.apellido,
-            st.session_state.mail,
+            st.session_state.email,
 
             st.session_state.edad,
 
