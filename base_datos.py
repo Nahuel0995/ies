@@ -135,7 +135,7 @@ def guardar_resultado(nombre, apellido, email, edad, sexo, respuestas, resultado
         carrera_recomendada = resultado["top4"][0]["carrera"]
         descripcion = resultado["top4"][0]["descripcion"]
         plan = resultado["top4"][0]["plan_estudio"]
-        drive = resultado["top4"][0]["link_drive"]
+
         
         # ¡Aquí estaba el error! Asegúrate de enviar los 6 datos en este orden exacto:
         enviar_correo_resultado(email, nombre, carrera_recomendada, descripcion, plan, drive) 
