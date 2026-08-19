@@ -13,7 +13,7 @@ from datetime import datetime
 # PEGA AQUÍ LA URL DE TU GOOGLE SHEET
 # ==========================================
 URL_GOOGLE_SHEET = "https://docs.google.com/spreadsheets/d/1Gf78RUz3HEKdQxbwYL0pa4fEFEyw-9zMzY-iqoaTx8c/edit?usp=sharing"
-def enviar_correo_resultado(email_destino, nombre, carrera_principal, descripcion_carrera, archivo_pdf, link_drive):
+def enviar_correo_resultado(email_destino, nombre, carrera_principal, descripcion_carrera, archivo_pdf):
     try:
         remitente = st.secrets["email"]["direccion"]
         password = st.secrets["email"]["password"]
@@ -138,7 +138,7 @@ def guardar_resultado(nombre, apellido, email, edad, sexo, respuestas, resultado
 
         
         # ¡Aquí estaba el error! Asegúrate de enviar los 6 datos en este orden exacto:
-        enviar_correo_resultado(email, nombre, carrera_recomendada, descripcion, plan,) 
+        enviar_correo_resultado(email, nombre, carrera_recomendada, descripcion, plan) 
         
         return len(hoja.get_all_values())
         
