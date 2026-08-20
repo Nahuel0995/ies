@@ -524,7 +524,8 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-FONDO PARA DATOS, TEST Y RESULTADO
+#=========================================================
+#FONDO PARA DATOS, TEST Y RESULTADO
 # ==========================================================
 
 def poner_fondo():
