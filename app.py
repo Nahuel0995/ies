@@ -1,4 +1,8 @@
 import streamlit as st
+from pathlib import Path  # <--- ¡AGREGA ESTA LÍNEA!
+
+
+import streamlit as st
 
 from preguntas import (
     obtener_preguntas_mezcladas
