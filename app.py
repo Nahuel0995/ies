@@ -27,6 +27,23 @@ st.set_page_config(
 
     layout="centered"
 )
+# ==========================================================
+# RUTAS
+# ==========================================================
+
+RUTA_BASE = Path(__file__).parent
+
+RUTA_LOGO = (
+    RUTA_BASE
+    / "imagenes"
+    / "logo ies.jpg"
+)
+
+RUTA_FOTO = (
+    RUTA_BASE
+    / "imagenes"
+    / "ies-n-11.webp"
+)
 
 
 # ==========================================================
