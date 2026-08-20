@@ -540,7 +540,7 @@ def poner_fondo():
                     rgba(0,0,0,0.30),
                     rgba(0,0,0,0.30)
                 ),
-                url("app/static/ies111.jpg");
+                url("app/static/ies-n-11.webp");
         }
 
         </style>
@@ -1169,7 +1169,17 @@ if "resultado_guardado" not in st.session_state:
 
     st.session_state.resultado_guardado = False
 
+# ==========================================================
+# FONDO SEGÚN PANTALLA
+# ==========================================================
 
+if st.session_state.pagina == "inicio":
+
+    estilo_inicio()
+
+else:
+
+    poner_fondo()
 # ==========================================================
 # REINICIAR
 # ==========================================================
